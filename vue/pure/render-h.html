@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+    <script type="module" src="/script.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <header id="header"></header>
+    <main>
+      <div id="app"></div>
+    </main>
+    <footer id="footer"></footer>
+  </body>
+  <script>
+    (function() {
+    const { h, createApp, ref, toDisplayString } = Vue
+    const Counter = {
+      setup() {
+        const count = ref(0)
+        const click = () => {
+          count.value += 1
+        }
+        return (_ctx, _cache) => {
+          return h('div', { class: 'hero' }, [
+            h('div', { class: 'heading' }, 'counting ...'),
+            h('div', { class: 'title' }, toDisplayString(count.value)),
+            h('div', { class: 'buttons' }, [
+              h('button', { class: 'button is-primary', onClick: click }, '点击计数加一')
+            ])
+          ])
+        }
+      }
+    }
+  
+    createApp({
+      render() {
+        console.log('Rendering ...')
+        return h(Counter, { class: 'container' })
+      }
+    }).mount('#app')
+  })()
+  </script>
+</html>
