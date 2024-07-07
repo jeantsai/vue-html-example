@@ -1,6 +1,6 @@
 console.log('Hello!');
 
-fetch("/header.html")
+fetch("/common/header.html")
   .then(response => {
     return response.text()
   })
@@ -8,7 +8,7 @@ fetch("/header.html")
     document.querySelector("#header").innerHTML = data;
   });
 
-fetch("/footer.html")
+fetch("/common/footer.html")
   .then(response => {
     return response.text()
   })
