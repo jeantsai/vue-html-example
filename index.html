@@ -19,7 +19,7 @@
         <div class="column">
           <div class="card">
             <header class="card-header">
-              <p class="card-header-title">语法糖 h</p>
+              <p class="card-header-title">无 render 只有 template</p>
               <button class="card-header-icon" aria-label="more options">
                 <span class="icon">
                   <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
@@ -28,35 +28,36 @@
             </header>
             <div class="card-content">
               <div class="content">
-                使用语法粮 h 可以在一定程度上简化 VNode 的创建工作。
+                Vue 会把在运行时收到的 template 编译成 render。
                 <br />
                 <pre>
                   <code lang="javascript">
 const Counter = {
+  template: `(JSX形式的组件内容)`,
   setup() {
     const count = ref(0)
     const click = () => {
       count.value += 1
     }
-    return (
-      使用如下语法糖 h 函数来创建的 VNode 树 
-      h('elem/comp', { class: 'cls', ... }, 'text'/[chilren])  
-    )
+    return {
+      count,
+      click,
+    }
   }
-}   
+}
                   </code>
                 </pre>
               </div>
             </div>
             <footer class="card-footer">
-              <a href="vue/pure/render-h.html" class="card-footer-item">Go to the example</a>
+              <a href="vue/pure/render-template.html" class="card-footer-item">Go to the example</a>
             </footer>
           </div>
         </div>
         <div class="column">
           <div class="card">
             <header class="card-header">
-              <p class="card-header-title">直接操作 VNode</p>
+              <p class="card-header-title">手写 render</p>
               <button class="card-header-icon" aria-label="more options">
                 <span class="icon">
                   <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
@@ -65,7 +66,7 @@ const Counter = {
             </header>
             <div class="card-content">
               <div class="content">
-                直接访问 VNode 的相关 API 是渲染组件的原子操作，实际上也是其它渲染方式的底层实现。
+                直接提供 render 这样编译模板的环节步没有了。与编译产生的 render 一样，都是通过 Vue API 直接创建 VNode 树。
                 <br />
                 <pre>
                   <code lang="javascript">
@@ -94,7 +95,7 @@ const Counter = {
         <div class="column">
           <div class="card">
             <header class="card-header">
-              <p class="card-header-title">借助 template</p>
+              <p class="card-header-title">手写 render 并借助语法糖 h 简化</p>
               <button class="card-header-icon" aria-label="more options">
                 <span class="icon">
                   <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
@@ -103,29 +104,28 @@ const Counter = {
             </header>
             <div class="card-content">
               <div class="content">
-                借助 template 的实质是将 template 动态编译成 render 函数。
+                使用语法糖 h 可以在一定程度上简化在 render 中 VNode 树的创建工作。
                 <br />
                 <pre>
                   <code lang="javascript">
 const Counter = {
-  template: `(JSX形式的组件内容)`,
   setup() {
     const count = ref(0)
     const click = () => {
       count.value += 1
     }
-    return {
-      count,
-      click,
-    }
+    return (
+      使用如下语法糖 h 函数来创建的 VNode 树 
+      h('elem/comp', { class: 'cls', ... }, 'text'/[chilren])  
+    )
   }
-}
+}   
                   </code>
                 </pre>
               </div>
             </div>
             <footer class="card-footer">
-              <a href="vue/pure/render-template.html" class="card-footer-item">Go to the example</a>
+              <a href="vue/pure/render-h.html" class="card-footer-item">Go to the example</a>
             </footer>
           </div>
         </div>
