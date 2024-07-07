@@ -14,7 +14,7 @@
     </div>
     <main>
       <div class="container">
-      <h4 class="title is-4 is-info">渲染 - 使用语法糖 <strong>h</strong></h4>
+      <h4 class="title is-4 is-info">渲染 - 直接操作 VNode</h4>
       <hr />
       </div>
       <div id="app"></div>
@@ -24,8 +24,8 @@
 
   <script>
     (function() {
-    const {
-      h, 
+    const { 
+      createVNode, createElementVNode, 
       createApp, ref, toDisplayString 
     } = Vue
     const Counter = {
@@ -35,11 +35,11 @@
           count.value += 1
         }
         return (_ctx, _cache) => {
-          return h('div', { class: 'hero' }, [
-            h('div', { class: 'heading' }, 'counting ...'),
-            h('div', { class: 'title' }, toDisplayString(count.value)),
-            h('div', { class: 'buttons' }, [
-              h('button', { class: 'button is-primary', onClick: click }, '点击计数加一')
+          return createElementVNode('div', { class: 'hero' }, [
+            createElementVNode('div', { class: 'heading' }, 'counting ...'),
+            createElementVNode('div', { class: 'title' }, toDisplayString(count.value)),
+            createElementVNode('div', { class: 'buttons' }, [
+              createElementVNode('button', { class: 'button is-primary', onClick: click }, '点击计数加一')
             ])
           ])
         }
@@ -49,7 +49,7 @@
     createApp({
       render() {
         console.log('Rendering ...')
-        return h(Counter, { class: 'container' })
+        return createVNode(Counter, { class: 'container' })
       }
     }).mount('#app')
   })()

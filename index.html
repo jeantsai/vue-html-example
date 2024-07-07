@@ -7,16 +7,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/scripts/verify.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/default.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <script type="module" src="script.js"></script>
   </head>
   <body>
     <header id="header"></header>
     <main>
-      <div class="columns">
+      <div class="columns is-multiline">
         <div class="column">
           <div class="card">
             <header class="card-header">
-              <p class="card-header-title">Render with h</p>
+              <p class="card-header-title">语法糖 h</p>
               <button class="card-header-icon" aria-label="more options">
                 <span class="icon">
                   <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
@@ -25,11 +28,24 @@
             </header>
             <div class="card-content">
               <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-                iaculis mauris.
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                使用语法粮 h 可以在一定程度上简化 VNode 的创建工作。
                 <br />
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                <pre>
+                  <code lang="javascript">
+const Counter = {
+  setup() {
+    const count = ref(0)
+    const click = () => {
+      count.value += 1
+    }
+    return (
+      使用如下语法糖 h 函数来创建的 VNode 树 
+      h('elem/comp', { class: 'cls', ... }, 'text'/[chilren])  
+    )
+  }
+}   
+                  </code>
+                </pre>
               </div>
             </div>
             <footer class="card-footer">
@@ -40,24 +56,76 @@
         <div class="column">
           <div class="card">
             <header class="card-header">
-              <p class="card-header-title">Component</p>
+              <p class="card-header-title">直接操作 VNode</p>
               <button class="card-header-icon" aria-label="more options">
                 <span class="icon">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                  <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
                 </span>
               </button>
             </header>
             <div class="card-content">
               <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-                iaculis mauris.
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                直接访问 VNode 的相关 API 是渲染组件的原子操作，实际上也是其它渲染方式的底层实现。
                 <br />
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                <pre>
+                  <code lang="javascript">
+const Counter = {
+  setup() {
+    const count = ref(0)
+    const click = () => {
+      count.value += 1
+    }
+    return (
+      使用如下原子 VNode 操作创建的 VNode 树 
+      createVNode('comp', { class: ... }, 'str'/[chilren])
+      createElementVNode('elem', { class: ... }, 'str'/[children])  
+    )
+  }
+}                    
+                  </code>
+                </pre>
               </div>
             </div>
             <footer class="card-footer">
-              <a href="vue/pure/render-h.html" class="card-footer-item">Go to the example</a>
+              <a href="vue/pure/render-vnode.html" class="card-footer-item">Go to the example</a>
+            </footer>
+          </div>
+        </div>
+        <div class="column">
+          <div class="card">
+            <header class="card-header">
+              <p class="card-header-title">借助 template</p>
+              <button class="card-header-icon" aria-label="more options">
+                <span class="icon">
+                  <i class="mdi mdi-chevron-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </header>
+            <div class="card-content">
+              <div class="content">
+                借助 template 的实质是将 template 动态编译成 render 函数。
+                <br />
+                <pre>
+                  <code lang="javascript">
+const Counter = {
+  template: `(JSX形式的组件内容)`,
+  setup() {
+    const count = ref(0)
+    const click = () => {
+      count.value += 1
+    }
+    return {
+      count,
+      click,
+    }
+  }
+}
+                  </code>
+                </pre>
+              </div>
+            </div>
+            <footer class="card-footer">
+              <a href="vue/pure/render-template.html" class="card-footer-item">Go to the example</a>
             </footer>
           </div>
         </div>

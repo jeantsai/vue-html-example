@@ -14,7 +14,7 @@
     </div>
     <main>
       <div class="container">
-      <h4 class="title is-4 is-info">渲染 - 使用语法糖 <strong>h</strong></h4>
+      <h4 class="title is-4 is-info">渲染 - 借助 template</h4>
       <hr />
       </div>
       <div id="app"></div>
@@ -24,34 +24,36 @@
 
   <script>
     (function() {
-    const {
-      h, 
+    const { 
       createApp, ref, toDisplayString 
     } = Vue
     const Counter = {
+      template: `
+        <div class="hero">
+          <div class="headering">counting ...</div>
+          <div class="title">{{ count }}</div>
+          <div class="buttons">
+            <button class="button is-primary" @click="click">点击计数加一</button>
+          </div>
+        </div>
+      `,
       setup() {
         const count = ref(0)
         const click = () => {
           count.value += 1
         }
-        return (_ctx, _cache) => {
-          return h('div', { class: 'hero' }, [
-            h('div', { class: 'heading' }, 'counting ...'),
-            h('div', { class: 'title' }, toDisplayString(count.value)),
-            h('div', { class: 'buttons' }, [
-              h('button', { class: 'button is-primary', onClick: click }, '点击计数加一')
-            ])
-          ])
+        return {
+          count,
+          click,
         }
       }
     }
   
     createApp({
-      render() {
-        console.log('Rendering ...')
-        return h(Counter, { class: 'container' })
-      }
-    }).mount('#app')
+      template: `<Counter class="container" />`
+    })
+    .component('Counter', Counter)
+    .mount('#app')
   })()
   </script>
 </html>
